@@ -1,0 +1,8 @@
+my_flask_env/
+.vscode
+__pycache__/
+instance/
+*.db
+*.sqlite3
+.env
+*.db
