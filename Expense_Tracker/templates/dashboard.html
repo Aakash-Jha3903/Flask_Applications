@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome, {{ username }} 👋</h2>
+<a href="{{ url_for('add_expense') }}" class="btn btn-outline-primary mb-3">+ Add Expense</a>
+<a href="{{ url_for('list_categories') }}" class="btn btn-outline-secondary mb-3">Manage Categories</a>
+<a href="{{ url_for('logout') }}" class="btn btn-outline-danger mb-3 float-end">Logout</a>
+
+{% if suggestions %}
+    <div class="mb-4">
+        <h5>💡 Smart Suggestions:</h5>
+        <ul>
+            {% for suggestion in suggestions %}
+            <li>{{ suggestion }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Title</th><th>Amount</th><th>Category</th><th>Date</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exp in expenses %}
+        <tr>
+            <td>{{ exp.title }}</td>
+            <td>₹{{ exp.amount }}</td>
+            <td>{{ exp.category.name if exp.category else 'N/A' }}</td>
+            <td>{{ exp.date }}</td>
+            <td>
+                <a href="{{ url_for('edit_expense', id=exp.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{{ url_for('delete_expense', id=exp.id) }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
